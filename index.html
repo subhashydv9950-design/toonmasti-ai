@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minto AI - Cartoon Video Generator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101323;
+      color: white;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #191e35;
+      border-bottom: 1px solid #303958;
+    }
+    header h1 { margin: 0; color: #8cf0ce; }
+    header p { color: #c2c9df; }
+    main {
+      max-width: 650px;
+      margin: 25px auto;
+      padding: 16px;
+    }
+    .panel {
+      background: #1b2139;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid #343d5e;
+    }
+    label { display: block; margin: 15px 0 8px; }
+    textarea, select {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 1px solid #475271;
+      background: #101629;
+      color: white;
+      font-size: 16px;
+    }
+    textarea { min-height: 125px; resize: vertical; }
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #8cf0ce;
+      color: #10251f;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    #result {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #101629;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    footer {
+      text-align: center;
+      color: #aab3cd;
+      padding: 20px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>✨ Minto AI</h1>
+    <p>अपनी कल्पना से कार्टून कहानी बनाओ!</p>
+  </header>
+
+  <main>
+    <div class="panel">
+      <h2>🎬 Cartoon Video Studio</h2>
+      <p>अपनी कहानी लिखो और उसे वीडियो बनाने की तैयारी करो।</p>
+
+      <label for="prompt">अपनी कहानी का Prompt लिखो</label>
+      <textarea id="prompt" placeholder="जैसे: एक चालाक बंदर और मजेदार खरगोश जंगल में..."></textarea>
+
+      <label for="style">कार्टून स्टाइल</label>
+      <select id="style">
+        <option>3D Cartoon</option>
+        <option>2D Cartoon</option>
+        <option>Anime</option>
+        <option>Funny Slapstick</option>
+      </select>
+
+      <label for="voice">आवाज की भाषा</label>
+      <select id="voice">
+        <option>हिंदी</option>
+        <option>English</option>
+      </select>
+
+      <button onclick="makeStory()">कहानी तैयार करो</button>
+      <div id="result">तुम्हारी कहानी यहाँ दिखाई देगी।</div>
+    </div>
+  </main>
+
+  <footer>Minto AI © 2026 | आपका क्रिएटिव कार्टून स्टूडियो</footer>
+
+  <script>
+    function makeStory() {
+      const prompt = document.getElementById("prompt").value.trim();
+      const style = document.getElementById("style").value;
+      const voice = document.getElementById("voice").value;
+      const result = document.getElementById("result");
+
+      if (!prompt) {
+        result.textContent = "पहले अपनी कहानी का Prompt लिखो।";
+        return;
+      }
+
+      result.textContent =
+        "🎬 MINTO AI — STORY PLAN\n\n" +
+        "कहानी: " + prompt + "\n\n" +
+        "स्टाइल: " + style + "\n" +
+        "आवाज: " + voice + "\n\n" +
+        "सीन 1: कहानी के मुख्य किरदारों का परिचय।\n" +
+        "सीन 2: एक मजेदार घटना या समस्या।\n" +
+        "सीन 3: हास्यपूर्ण अंत।\n\n" +
+        "यह शुरुआती डेमो है। अभी यह वास्तविक वीडियो या AI आवाज़ नहीं बनाता।";
+    }
+  </script>
+</body>
+</html>
