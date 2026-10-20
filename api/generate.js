@@ -1,16 +1,4 @@
 
-export async function onRequestPost(context) {
-  return new Response(
-    JSON.stringify({
-      success: false,
-      message:
-        "Backend तैयार है, लेकिन AI वीडियो जनरेशन API अभी कनेक्ट नहीं है।"
-    }),
-    {
-      status: 501,
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8"
-      }
-    }
-  );
-}
+name = "toonmasti-ai"
+compatibility_date = "2026-10-21"
+pages_build_output_dir = "."
