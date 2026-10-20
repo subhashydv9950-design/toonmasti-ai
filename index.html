@@ -2,666 +2,531 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101323">
-  <meta name="description" content="ToonMasti AI - अपनी कल्पना से मजेदार कार्टून कहानियों और वीडियो की योजना बनाएं।">
-  <title>ToonMasti AI | Cartoon Studio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101323">
+<meta name="description" content="ToonMasti AI - AI Cartoon, Anime और 3D Animation Story Studio">
+<title>ToonMasti AI | Cartoon Studio</title>
 
-  <style>
-    :root {
-      --bg: #101323;
-      --panel: #1b2139;
-      --panel2: #141a2e;
-      --border: #343d5e;
-      --mint: #8cf0ce;
-      --text: #f5f7ff;
-      --muted: #aab3cd;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
-
-    button, textarea, select, input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    header {
-      padding: 17px 16px;
-      background: #191e35;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topbar {
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      color: var(--mint);
-      font-size: 23px;
-      font-weight: 800;
-    }
-
-    .logo span {
-      color: white;
-    }
-
-    .status {
-      color: var(--mint);
-      font-size: 12px;
-      border: 1px solid #376a60;
-      background: #16342f;
-      padding: 5px 10px;
-      border-radius: 20px;
-    }
-
-    main {
-      max-width: 1100px;
-      padding: 24px 15px 45px;
-      margin: auto;
-    }
-
-    .hero {
-      padding: 25px 20px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      background:
-        radial-gradient(ellipse at top right, #244c50 0, transparent 48%),
-        linear-gradient(135deg, #202844, #171b30);
-      margin-bottom: 22px;
-    }
-
-    .eyebrow {
-      color: var(--mint);
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    h1 {
-      font-size: clamp(27px, 6vw, 43px);
-      line-height: 1.2;
-      margin: 10px 0;
-    }
-
-    .hero p, .muted {
-      color: var(--muted);
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin-bottom: 20px;
-    }
-
-    .button {
-      border: 0;
-      border-radius: 11px;
-      background: var(--mint);
-      color: #10251f;
-      font-weight: bold;
-      padding: 12px 17px;
-      display: inline-block;
-    }
-
-    .button.secondary {
-      background: #29334f;
-      color: white;
-      border: 1px solid #455273;
-    }
-
-    .section-title {
-      font-size: 21px;
-      margin: 27px 0 13px;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .stat, .panel, .character {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-    }
-
-    .stat {
-      padding: 14px 10px;
-      min-width: 0;
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 17px;
-    }
-
-    .stat span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-      gap: 17px;
-      align-items: start;
-    }
-
-    .panel {
-      padding: 19px;
-      min-width: 0;
-    }
-
-    .panel h2 {
-      font-size: 20px;
-      margin: 0 0 6px;
-    }
-
-    label {
-      display: block;
-      margin: 17px 0 7px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    textarea, select, input {
-      width: 100%;
-      color: white;
-      background: var(--panel2);
-      border: 1px solid #475271;
-      border-radius: 10px;
-      padding: 12px;
-      outline: none;
-    }
-
-    textarea {
-      min-height: 145px;
-      resize: vertical;
-    }
-
-    textarea:focus, select:focus, input:focus {
-      border-color: var(--mint);
-    }
-
-    .two-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .full {
-      width: 100%;
-      margin-top: 17px;
-    }
-
-    .character-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .character {
-      text-align: center;
-      padding: 13px 5px;
-      cursor: pointer;
-      color: white;
-      transition: border-color .2s, background .2s;
-    }
-
-    .character.selected {
-      border-color: var(--mint);
-      background: #243c43;
-      box-shadow: inset 0 0 0 1px var(--mint);
-    }
-
-    .avatar {
-      font-size: 38px;
-      line-height: 1.4;
-    }
-
-    .character strong {
-      display: block;
-      font-size: 14px;
-    }
-
-    .character small {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .custom-box {
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-
-    .result {
-      margin-top: 17px;
-      padding: 15px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel2);
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      font-size: 14px;
-    }
-
-    .result:empty {
-      display: none;
-    }
-
-    .notice {
-      padding: 12px;
-      border-radius: 10px;
-      background: #282a42;
-      color: #d9dff1;
-      font-size: 12px;
-      margin-top: 14px;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 25px 15px;
-      border-top: 1px solid var(--border);
-      font-size: 12px;
-    }
-
-    @media (max-width: 680px) {
-      .workspace {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding: 22px 16px;
-      }
-
-      .panel {
-        padding: 16px;
-      }
-
-      .stats {
-        gap: 7px;
-      }
-
-      .stat {
-        padding: 11px 7px;
-      }
-
-      .stat strong {
-        font-size: 15px;
-      }
-
-      .stat span {
-        font-size: 11px;
-      }
-    }
-  </style>
+<style>
+:root {
+  --bg:#0c1020;
+  --panel:#171e33;
+  --panel2:#10172a;
+  --border:#303b59;
+  --mint:#8cf0ce;
+  --purple:#b8a2ff;
+  --text:#f6f7ff;
+  --muted:#aab5d0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:Arial,sans-serif;line-height:1.6
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+header{
+  position:sticky;top:0;z-index:10;
+  background:#11172bea;backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);padding:13px 16px
+}
+.topbar{
+  max-width:1100px;margin:auto;display:flex;
+  align-items:center;justify-content:space-between;gap:10px
+}
+.logo{font-weight:900;font-size:22px;color:var(--mint)}
+.logo span{color:white}
+.status{
+  font-size:11px;color:var(--mint);border:1px solid #386c60;
+  border-radius:30px;padding:4px 9px
+}
+main{max-width:1100px;margin:auto;padding:22px 14px 45px}
+.hero{
+  padding:28px 21px;border-radius:24px;
+  border:1px solid var(--border);
+  background:radial-gradient(ellipse at 95% 5%,#334f70,transparent 42%),
+  linear-gradient(135deg,#202a48,#17182e)
+}
+.eyebrow{color:var(--mint);font-size:12px;font-weight:bold;letter-spacing:1.4px}
+h1{font-size:clamp(30px,7vw,48px);line-height:1.18;margin:12px 0}
+p{margin-top:8px}
+.muted{color:var(--muted)}
+.hero p{max-width:650px;color:#c3cbe0}
+.button{
+  background:var(--mint);color:#10251f;border:0;
+  padding:12px 17px;border-radius:12px;font-weight:bold
+}
+.button.secondary{
+  background:#252f4b;color:white;border:1px solid #485573
+}
+.button:focus-visible,.character:focus-visible{
+  outline:2px solid white;outline-offset:3px
+}
+.stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;margin-top:15px
+}
+.stat,.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:17px
+}
+.stat{padding:13px 10px}
+.stat strong{display:block;font-size:15px}
+.stat span{color:var(--muted);font-size:11px}
+.section-title{font-size:22px;margin:28px 0 13px}
+.workspace{
+  display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
+  gap:15px;align-items:start
+}
+.panel{padding:18px;min-width:0}
+.panel h2{font-size:20px;margin:0}
+label{display:block;margin:15px 0 7px;font-size:13px;font-weight:bold}
+textarea,input,select{
+  width:100%;padding:12px;color:var(--text);
+  background:var(--panel2);border:1px solid #414d6c;
+  border-radius:11px;outline:none
+}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:var(--mint)}
+select option{background:#171e33;color:white}
+.two-cols{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.full{width:100%;margin-top:16px}
+.hint{font-size:11px;color:var(--muted);margin-top:6px}
+.character-grid{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;margin-top:15px
+}
+.character{
+  background:#131a2d;color:white;border:1px solid var(--border);
+  border-radius:14px;padding:12px 6px;text-align:center;min-width:0
+}
+.character.selected{
+  background:#203c40;border-color:var(--mint);
+  box-shadow:inset 0 0 0 1px var(--mint)
+}
+.avatar{font-size:36px;line-height:1.4}
+.character strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.character small{font-size:11px;color:var(--muted)}
+.custom-box{margin-top:17px;padding-top:13px;border-top:1px solid var(--border)}
+.result{
+  display:none;margin-top:17px;padding:14px;
+  border:1px solid var(--border);border-radius:13px;
+  background:var(--panel2);white-space:pre-wrap;
+  overflow-wrap:anywhere;font-size:13px
+}
+.notice{
+  background:#25283f;border-radius:11px;padding:12px;
+  color:#d9dff1;font-size:12px;margin-top:13px
+}
+.tag{
+  display:inline-block;border:1px solid var(--border);
+  border-radius:30px;padding:4px 9px;margin:3px;
+  color:var(--muted);font-size:11px
+}
+footer{
+  text-align:center;padding:26px 15px;color:var(--muted);
+  border-top:1px solid var(--border);font-size:12px
+}
+footer a{color:var(--mint)}
+@media(max-width:700px){
+  .workspace{grid-template-columns:1fr}
+  .hero{padding:23px 16px}
+  .panel{padding:15px}
+  .stats{gap:6px}
+  .stat{padding:10px 6px}
+  .stat strong{font-size:12px}
+  .stat span{font-size:10px}
+}
+@media(max-width:360px){
+  .two-cols{grid-template-columns:1fr}
+  .logo{font-size:19px}
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <div class="topbar">
-      <div class="logo">🎬 ToonMasti <span>AI</span></div>
-      <div class="status">● Studio Demo</div>
-    </div>
-  </header>
+<header>
+  <div class="topbar">
+    <div class="logo">🎬 ToonMasti <span>AI</span></div>
+    <div class="status">● CREATOR STUDIO</div>
+  </div>
+</header>
 
-  <main>
-    <section class="hero">
-      <div class="eyebrow">YOUR IMAGINATION, YOUR CARTOON</div>
-      <h1>अपनी कहानी को दो<br>कार्टून का अंदाज़! ✨</h1>
-      <p>
-        एक आइडिया लिखो, अपने पसंदीदा किरदार चुनो और
-        अपनी अगली मजेदार 3D कार्टून फिल्म की योजना बनाओ।
-      </p>
-      <button class="button" onclick="goToStudio()">
-        अपना कार्टून बनाएं ↓
-      </button>
-    </section>
-
-    <section class="stats">
-      <div class="stat">
-        <strong>🎭 Character</strong>
-        <span>किरदार चुनें</span>
-      </div>
-      <div class="stat">
-        <strong>📝 Story AI</strong>
-        <span>कहानी की योजना</span>
-      </div>
-      <div class="stat">
-        <strong>🎥 Video</strong>
-        <span>वीडियो स्टूडियो</span>
-      </div>
-    </section>
-
-    <h2 class="section-title" id="studio">🚀 Cartoon Creation Studio</h2>
-
-    <div class="workspace">
-      <section class="panel">
-        <h2>📝 अपनी कहानी बनाएं</h2>
-        <p class="muted">एक Prompt में अपने कार्टून का आइडिया बताएं।</p>
-
-        <form id="storyForm">
-          <label for="prompt">आपकी कहानी का Prompt</label>
-          <textarea id="prompt" maxlength="3000"
-            placeholder="जैसे: तीन शरारती दोस्त एक बड़े आलसी राक्षस को परेशान करते हैं। राक्षस उन्हें सबक सिखाने के बजाय उनके साथ मिलकर जंगल बचाता है। कहानी मजेदार, भावनात्मक और शानदार अंत वाली हो।"
-            required></textarea>
-
-          <div class="two-cols">
-            <div>
-              <label for="style">कार्टून स्टाइल</label>
-              <select id="style">
-                <option>3D Cartoon</option>
-                <option>Funny 3D Animation</option>
-                <option>2D Cartoon</option>
-                <option>Anime</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="duration">वीडियो अवधि</label>
-              <select id="duration">
-                <option value="5">5 मिनट</option>
-                <option value="8">8 मिनट</option>
-                <option value="10">10 मिनट</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="two-cols">
-            <div>
-              <label for="language">भाषा</label>
-              <select id="language">
-                <option>हिंदी</option>
-                <option>English</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="mood">कहानी का मूड</label>
-              <select id="mood">
-                <option>मजेदार</option>
-                <option>एडवेंचर</option>
-                <option>इमोशनल</option>
-                <option>फैंटेसी</option>
-                <option>कॉमेडी और एडवेंचर</option>
-              </select>
-            </div>
-          </div>
-
-          <button class="button full" type="submit">
-            ✨ कहानी की योजना बनाएं
-          </button>
-        </form>
-
-        <div class="notice">
-          अभी यह शुरुआती इंटरफेस है। यह कहानी की एक बेसिक योजना बनाता है;
-          असली AI स्क्रिप्ट, आवाज़ और वीडियो के लिए आगे AI सेवाएँ जोड़नी होंगी।
-        </div>
-
-        <div id="result" class="result" aria-live="polite"></div>
-      </section>
-
-      <section class="panel">
-        <h2>🎭 अपने किरदार चुनें</h2>
-        <p class="muted">एक या कई किरदार चुन सकते हैं।</p>
-
-        <div class="character-grid" id="characters">
-          <button type="button" class="character selected"
-            data-name="गोलू भालू" aria-pressed="true">
-            <div class="avatar">🐻</div>
-            <strong>गोलू भालू</strong>
-            <small>बड़ा और मजेदार</small>
-          </button>
-
-          <button type="button" class="character selected"
-            data-name="चिंटू बंदर" aria-pressed="true">
-            <div class="avatar">🐵</div>
-            <strong>चिंटू बंदर</strong>
-            <small>शरारती दोस्त</small>
-          </button>
-
-          <button type="button" class="character selected"
-            data-name="मोटू खरगोश" aria-pressed="true">
-            <div class="avatar">🐰</div>
-            <strong>मोटू खरगोश</strong>
-            <small>मस्तीखोर दोस्त</small>
-          </button>
-
-          <button type="button" class="character"
-            data-name="टिंकू लोमड़ी" aria-pressed="false">
-            <div class="avatar">🦊</div>
-            <strong>टिंकू लोमड़ी</strong>
-            <small>चालाक दोस्त</small>
-          </button>
-
-          <button type="button" class="character"
-            data-name="जादुई ड्रैगन" aria-pressed="false">
-            <div class="avatar">🐉</div>
-            <strong>जादुई ड्रैगन</strong>
-            <small>फैंटेसी किरदार</small>
-          </button>
-
-          <button type="button" class="character"
-            data-name="अपना किरदार" aria-pressed="false">
-            <div class="avatar">🌟</div>
-            <strong>अपना किरदार</strong>
-            <small>नाम खुद लिखें</small>
-          </button>
-        </div>
-
-        <div class="custom-box">
-          <label for="customName">अपने किरदार का नाम</label>
-          <input id="customName" maxlength="50"
-            placeholder="जैसे: राजा लड्डू">
-
-          <label for="customDescription">किरदार कैसा दिखे?</label>
-          <textarea id="customDescription"
-            style="min-height:85px"
-            maxlength="500"
-            placeholder="जैसे: बड़ा नीला राक्षस, हरी जैकेट, गोल चेहरा और मजेदार आवाज़।"></textarea>
-
-          <button class="button secondary full" id="addCharacter" type="button">
-            + अपना किरदार जोड़ें
-          </button>
-        </div>
-
-        <div class="notice">
-          इस संस्करण में किरदारों के नाम और विवरण चुने जा सकते हैं।
-          असली कस्टम 3D मॉडल बनाने की सुविधा बाद में जोड़ी जाएगी।
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <footer>
-    <strong>ToonMasti AI</strong><br>
-    आपका क्रिएटिव कार्टून स्टूडियो © 2026
-    <br><br>
-    Made for cartoon creators ✨
-  </footer>
-
-  <script>
-    const selectedCharacters = new Set([
-      "गोलू भालू",
-      "चिंटू बंदर",
-      "मोटू खरगोश"
-    ]);
-
-    function goToStudio() {
-      document.getElementById("studio").scrollIntoView({
-        behavior: "smooth"
-      });
-    }
-
-    document.querySelectorAll(".character").forEach(button => {
-      button.addEventListener("click", () => {
-        const name = button.dataset.name;
-
-        if (selectedCharacters.has(name)) {
-          selectedCharacters.delete(name);
-          button.classList.remove("selected");
-          button.setAttribute("aria-pressed", "false");
-        } else {
-          selectedCharacters.add(name);
-          button.classList.add("selected");
-          button.setAttribute("aria-pressed", "true");
-        }
-      });
-    });
-
-    document.getElementById("addCharacter").addEventListener("click", () => {
-      const nameInput = document.getElementById("customName");
-      const descriptionInput =
-        document.getElementById("customDescription");
-
-      const name = nameInput.value.trim();
-      const description = descriptionInput.value.trim();
-
-      if (!name) {
-        alert("पहले अपने किरदार का नाम लिखें।");
-        nameInput.focus();
-        return;
-      }
-
-      if (selectedCharacters.has(name)) {
-        alert("यह किरदार पहले से चुना हुआ है।");
-        return;
-      }
-
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "character selected";
-      button.dataset.name = name;
-      button.setAttribute("aria-pressed", "true");
-
-      const avatar = document.createElement("div");
-      avatar.className = "avatar";
-      avatar.textContent = "🌟";
-
-      const title = document.createElement("strong");
-      title.textContent = name;
-
-      const small = document.createElement("small");
-      small.textContent = description || "कस्टम किरदार";
-
-      button.append(avatar, title, small);
-
-      button.addEventListener("click", () => {
-        if (selectedCharacters.has(name)) {
-          selectedCharacters.delete(name);
-          button.classList.remove("selected");
-          button.setAttribute("aria-pressed", "false");
-        } else {
-          selectedCharacters.add(name);
-          button.classList.add("selected");
-          button.setAttribute("aria-pressed", "true");
-        }
-      });
-
-      document.getElementById("characters").appendChild(button);
-      selectedCharacters.add(name);
-
-      nameInput.value = "";
-      descriptionInput.value = "";
-    });
-
-    document.getElementById("storyForm").addEventListener("submit", event => {
-      event.preventDefault();
-
-      const prompt = document.getElementById("prompt").value.trim();
-      const style = document.getElementById("style").value;
-      const duration = document.getElementById("duration").value;
-      const language = document.getElementById("language").value;
-      const mood = document.getElementById("mood").value;
-
-      const result = document.getElementById("result");
-
-      if (!prompt) {
-        result.textContent = "पहले अपनी कहानी का Prompt लिखें।";
-        return;
-      }
-
-      if (selectedCharacters.size === 0) {
-        result.textContent = "कहानी के लिए कम से कम एक किरदार चुनें।";
-        return;
-      }
-
-      const characters = Array.from(selectedCharacters);
-
-      result.textContent =
-        "🎬 TOONMASTI AI — STORY PLAN\n\n" +
-        "कहानी का आइडिया:\n" + prompt + "\n\n" +
-        "कार्टून स्टाइल: " + style + "\n" +
-        "वीडियो लक्ष्य: " + duration + " मिनट\n" +
-        "भाषा: " + language + "\n" +
-        "मूड: " + mood + "\n\n" +
-        "मुख्य किरदार:\n- " + characters.join("\n- ") + "\n\n" +
-        "प्रारंभिक सीन प्लान:\n\n" +
-        "सीन 1 — परिचय:\n" +
-        "मुख्य किरदारों और उनकी दुनिया का परिचय।\n\n" +
-        "सीन 2 — शरारत:\n" +
-        "छोटे किरदार अपनी मजेदार हरकतों से बड़ी समस्या पैदा करते हैं।\n\n" +
-        "सीन 3 — ट्विस्ट:\n" +
-        "एक नई घटना कहानी को रोमांचक मोड़ देती है।\n\n" +
-        "सीन 4 — क्लाइमैक्स:\n" +
-        "सभी किरदार मिलकर समस्या का समाधान खोजते हैं।\n\n" +
-        "सीन 5 — मजेदार अंत:\n" +
-        "कहानी एक यादगार और हास्यपूर्ण पल के साथ खत्म होती है।\n\n" +
-        "अगला चरण: इस योजना को पूरी स्क्रिप्ट, संवाद, " +
-        "सीन-वाइज AI वीडियो और हिंदी आवाज़ में बदलने के लिए " +
-        "AI बैकएंड जोड़ना होगा। अभी कोई वास्तविक वीडियो नहीं बना है।";
-      
-      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    });
-  </script>
-  
-<section style="max-width:1100px;margin:25px auto;padding:20px;color:#f5f7ff;font-family:Arial,sans-serif;">
-  <div style="background:#1b2139;border:1px solid #343d5e;border-radius:18px;padding:24px;">
-    <p style="color:#8cf0ce;font-weight:bold;">ABOUT US</p>
-    <h2>ToonMasti AI के बारे में</h2>
-    <p style="color:#aab3cd;line-height:1.8;">
-      ToonMasti AI एक क्रिएटिव कार्टून स्टूडियो है,
-      जो यूज़र्स को अपनी कल्पना से मजेदार कार्टून कहानियाँ बनाने में मदद करता है।
-    </p>
-    <hr style="border-color:#343d5e;margin:22px 0;">
-    <h3 style="color:#8cf0ce;">डेवलपर और फाउंडर</h3>
-    <p style="font-size:20px;font-weight:bold;">Subhash Yadav</p>
-    <p style="color:#aab3cd;">Founder &amp; Developer — ToonMasti AI</p>
-    <p>Instagram:
-      <a href="https://www.instagram.com/iamsubhash177/" target="_blank" rel="noopener noreferrer" style="color:#8cf0ce;">@iamsubhash177</a>
-    </p>
-    <p>Gmail:
-      <a href="mailto:yahu9950@gmail.com" style="color:#8cf0ce;">yahu9950@gmail.com</a>
-    </p>
+<main>
+<section class="hero">
+  <div class="eyebrow">YOUR STORY. YOUR CHARACTERS. YOUR WORLD.</div>
+  <h1>आपकी कल्पना,<br>आपकी Cartoon Movie! ✨</h1>
+  <p>
+    अपना आइडिया लिखें, किरदार चुनें और मजेदार 3D Cartoon,
+    Anime या Adventure Story बनाने की शुरुआत करें।
+  </p>
+  <button class="button" id="startBtn">🚀 Create Your Cartoon ↓</button>
+  <div style="margin-top:12px">
+    <span class="tag">🎭 Custom Characters</span>
+    <span class="tag">📝 AI Story Ready</span>
+    <span class="tag">🎥 Shorts & Movies</span>
   </div>
 </section>
-  
+
+<section class="stats">
+  <div class="stat"><strong>🎭 Characters</strong><span>अपने किरदार चुनें</span></div>
+  <div class="stat"><strong>🧠 Story Studio</strong><span>कहानी की योजना</span></div>
+  <div class="stat"><strong>🎬 Video Format</strong><span>Shorts और Long Video</span></div>
+</section>
+
+<h2 class="section-title" id="studio">🚀 Cartoon Creation Studio</h2>
+
+<div class="workspace">
+<section class="panel">
+  <h2>📝 अपनी कहानी तैयार करें</h2>
+  <p class="muted">आपका आइडिया ही कहानी की शुरुआत है।</p>
+
+  <form id="storyForm">
+    <label for="prompt">Story Prompt / कहानी का आइडिया</label>
+    <textarea id="prompt" maxlength="3000" required
+      placeholder="जैसे: तीन मजेदार दोस्त जादुई जंगल में खो जाते हैं। वहाँ उन्हें एक डरपोक ड्रैगन मिलता है और सभी मिलकर गाँव को बचाते हैं।"></textarea>
+
+    <div class="two-cols">
+      <div>
+        <label for="style">🎨 Animation Style</label>
+        <select id="style">
+          <option>Funny 3D Animation</option>
+          <option>3D Cartoon</option>
+          <option>Anime</option>
+          <option>2D Cartoon</option>
+          <option>Fantasy 3D</option>
+        </select>
+      </div>
+      <div>
+        <label for="duration">⏱️ Video Duration</label>
+        <select id="duration">
+          <option value="30 सेकंड">30 सेकंड</option>
+          <option value="1 मिनट">1 मिनट</option>
+          <option value="5 मिनट">5 मिनट</option>
+          <option value="10 मिनट">10 मिनट</option>
+          <option value="15 मिनट">15 मिनट</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="two-cols">
+      <div>
+        <label for="ratio">📱 Video Ratio</label>
+        <select id="ratio">
+          <option value="9:16">9:16 Portrait / Shorts</option>
+          <option value="16:9">16:9 Landscape / Movie</option>
+        </select>
+      </div>
+      <div>
+        <label for="language">🌐 Language</label>
+        <select id="language">
+          <option value="Hindi + English">Hindi + English</option>
+          <option value="Hindi">हिंदी</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="two-cols">
+      <div>
+        <label for="mood">🎭 Story Mood</label>
+        <select id="mood">
+          <option>Comedy / मजेदार</option>
+          <option>Adventure / रोमांच</option>
+          <option>Emotional / भावुक</option>
+          <option>Fantasy / जादुई</option>
+          <option>Comedy + Adventure</option>
+          <option>Mystery / रहस्य</option>
+          <option>Inspirational / प्रेरणादायक</option>
+        </select>
+      </div>
+      <div>
+        <label for="voice">🎙️ Voice Style</label>
+        <select id="voice">
+          <option>Character-based funny voices</option>
+          <option>Expressive cinematic voices</option>
+          <option>Calm storytelling</option>
+          <option>Energetic cartoon voices</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="button full" type="submit">✨ कहानी का प्लान तैयार करें</button>
+  </form>
+
+  <div id="result" class="result" aria-live="polite"></div>
+  <button id="copyPlan" class="button secondary full" type="button" hidden>📋 प्लान कॉपी करें</button>
+
+  <div class="notice">
+    ℹ️ अभी यह इंटरफेस कहानी की शुरुआती योजना तैयार करता है।
+    वास्तविक AI स्क्रिप्ट, वॉइस और वीडियो के लिए सुरक्षित Backend API जोड़ना आवश्यक है।
+  </div>
+</section>
+
+<section class="panel">
+  <h2>🎭 Character Studio</h2>
+  <p class="muted">एक या कई किरदार चुनें।</p>
+
+  <div class="character-grid" id="characters">
+    <button type="button" class="character selected" data-name="गोलू भालू">
+      <div class="avatar">🐻</div><strong>गोलू भालू</strong><small>Funny & Friendly</small>
+    </button>
+    <button type="button" class="character selected" data-name="चिंटू बंदर">
+      <div class="avatar">🐵</div><strong>चिंटू बंदर</strong><small>शरारती दोस्त</small>
+    </button>
+    <button type="button" class="character selected" data-name="मोटू खरगोश">
+      <div class="avatar">🐰</div><strong>मोटू खरगोश</strong><small>मस्तीखोर</small>
+    </button>
+    <button type="button" class="character" data-name="टिंकू लोमड़ी">
+      <div class="avatar">🦊</div><strong>टिंकू लोमड़ी</strong><small>चालाक दोस्त</small>
+    </button>
+    <button type="button" class="character" data-name="जादुई ड्रैगन">
+      <div class="avatar">🐉</div><strong>जादुई ड्रैगन</strong><small>Fantasy Hero</small>
+    </button>
+  </div>
+
+  <div class="custom-box">
+    <h3>🌟 अपना Character बनाएं</h3>
+    <label for="customName">किरदार का नाम</label>
+    <input id="customName" maxlength="50" placeholder="जैसे: राजा लड्डू">
+
+    <label for="customDescription">दिखावट और व्यक्तित्व</label>
+    <textarea id="customDescription" maxlength="500"
+      style="min-height:85px"
+      placeholder="जैसे: नीला 3D ड्रैगन, सुनहरे पंख, गोल आँखें और मजेदार स्वभाव।"></textarea>
+
+    <label for="customVoice">किरदार की आवाज़</label>
+    <select id="customVoice">
+      <option>मजेदार और चुलबुली</option>
+      <option>गहरी और दमदार</option>
+      <option>मासूम और प्यारी</option>
+      <option>शांत और भावुक</option>
+      <option>ऊर्जावान और रोमांचक</option>
+    </select>
+
+    <button class="button secondary full" id="addCharacter" type="button">+ Character जोड़ें</button>
+  </div>
+
+  <div class="notice">
+    आपके चुने हुए किरदार प्लान में शामिल होंगे। वास्तविक 3D मॉडल,
+    स्थिर कैरेक्टर लुक और अलग AI आवाज़ों के लिए अगला तकनीकी चरण जरूरी है।
+  </div>
+</section>
+</div>
+
+<section class="panel" style="margin-top:18px">
+  <h2>🎞️ आपका अगला क्रिएशन</h2>
+  <p class="muted">
+    अगली रिलीज़ में सुरक्षित AI स्क्रिप्ट जनरेशन, सीन-वाइज इमेज/वीडियो,
+    डायलॉग, वॉइसओवर और वीडियो एक्सपोर्ट को जोड़ा जा सकता है।
+  </p>
+  <div class="notice">🔒 API Key को HTML या JavaScript में सार्वजनिक रूप से न रखें।</div>
+</section>
+
+<section class="panel" style="margin-top:18px" id="about">
+  <p class="eyebrow">ABOUT US</p>
+  <h2>ToonMasti AI के बारे में</h2>
+  <p class="muted">
+    ToonMasti AI एक क्रिएटिव कार्टून स्टूडियो है,
+    जिसका उद्देश्य यूज़र्स को अपनी कल्पना से मजेदार कहानियाँ और
+    एनिमेशन प्रोजेक्ट बनाने में मदद करना है।
+  </p>
+  <hr style="border-color:var(--border);margin:20px 0">
+  <h3 style="color:var(--mint)">Developer & Founder</h3>
+  <p><strong>Subhash Yadav</strong></p>
+  <p class="muted">Founder & Developer — ToonMasti AI</p>
+  <p>Instagram:
+    <a style="color:var(--mint)" href="https://www.instagram.com/iamsubhash177/" target="_blank" rel="noopener noreferrer">@iamsubhash177</a>
+  </p>
+  <p>Gmail:
+    <a style="color:var(--mint)" href="mailto:yahu9950@gmail.com">yahu9950@gmail.com</a>
+  </p>
+</section>
+</main>
+
+<footer>
+  <strong>🎬 ToonMasti AI</strong><br>
+  Made for cartoon creators ✨<br>
+  © 2026 ToonMasti AI
+</footer>
+
+<script>
+const selectedCharacters = new Map();
+
+document.querySelectorAll(".character").forEach(button => {
+  const name = button.dataset.name;
+  if (button.classList.contains("selected")) {
+    selectedCharacters.set(name, {
+      name,
+      description: button.querySelector("small").textContent,
+      voice: "Character-based funny voices"
+    });
+  }
+});
+
+function updateCharacterButton(button) {
+  const name = button.dataset.name;
+  const active = selectedCharacters.has(name);
+  button.classList.toggle("selected", active);
+  button.setAttribute("aria-pressed", String(active));
+}
+
+document.getElementById("characters").addEventListener("click", event => {
+  const button = event.target.closest(".character");
+  if (!button) return;
+
+  const name = button.dataset.name;
+  if (selectedCharacters.has(name)) {
+    selectedCharacters.delete(name);
+  } else {
+    selectedCharacters.set(name, {
+      name,
+      description: button.querySelector("small").textContent,
+      voice: "Character-based funny voices"
+    });
+  }
+  updateCharacterButton(button);
+});
+
+document.getElementById("addCharacter").addEventListener("click", () => {
+  const nameInput = document.getElementById("customName");
+  const descriptionInput = document.getElementById("customDescription");
+  const name = nameInput.value.trim();
+  const description = descriptionInput.value.trim();
+  const voice = document.getElementById("customVoice").value;
+
+  if (!name) {
+    alert("पहले अपने किरदार का नाम लिखें।");
+    nameInput.focus();
+    return;
+  }
+
+  if (selectedCharacters.has(name) ||
+      [...document.querySelectorAll(".character")].some(b => b.dataset.name === name)) {
+    alert("इस नाम का किरदार पहले से मौजूद है।");
+    return;
+  }
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "character selected";
+  button.dataset.name = name;
+  button.setAttribute("aria-pressed", "true");
+
+  const avatar = document.createElement("div");
+  avatar.className = "avatar";
+  avatar.textContent = "🌟";
+
+  const title = document.createElement("strong");
+  title.textContent = name;
+
+  const small = document.createElement("small");
+  small.textContent = description || "Custom Character";
+
+  button.append(avatar, title, small);
+  document.getElementById("characters").appendChild(button);
+
+  selectedCharacters.set(name, {
+    name,
+    description: description || "Custom Character",
+    voice
+  });
+
+  nameInput.value = "";
+  descriptionInput.value = "";
+});
+
+document.getElementById("startBtn").addEventListener("click", () => {
+  document.getElementById("studio").scrollIntoView({behavior:"smooth"});
+  document.getElementById("prompt").focus({preventScroll:true});
+});
+
+let currentPlan = "";
+
+document.getElementById("storyForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const prompt = document.getElementById("prompt").value.trim();
+  if (!prompt) {
+    alert("कृपया अपनी कहानी का आइडिया लिखें।");
+    return;
+  }
+
+  if (selectedCharacters.size === 0) {
+    alert("कम से कम एक किरदार चुनें।");
+    return;
+  }
+
+  const style = document.getElementById("style").value;
+  const duration = document.getElementById("duration").value;
+  const ratio = document.getElementById("ratio").value;
+  const language = document.getElementById("language").value;
+  const mood = document.getElementById("mood").value;
+  const voice = document.getElementById("voice").value;
+  const characters = [...selectedCharacters.values()];
+
+  const sceneCount = duration === "30 सेकंड" ? 3 :
+                     duration === "1 मिनट" ? 5 :
+                     duration === "5 मिनट" ? 10 :
+                     duration === "10 मिनट" ? 16 : 22;
+
+  currentPlan =
+`🎬 TOONMASTI AI — PROJECT PLAN
+
+कहानी का आइडिया:
+${prompt}
+
+ANIMATION SETTINGS
+स्टाइल: ${style}
+अवधि: ${duration}
+फॉर्मेट: ${ratio}
+भाषा: ${language}
+मूड: ${mood}
+सामान्य वॉइस स्टाइल: ${voice}
+
+मुख्य किरदार:
+${characters.map((c, i) =>
+`${i + 1}. ${c.name}
+   विवरण: ${c.description}
+   आवाज़ की पसंद: ${c.voice}`).join("\n\n")}
+
+प्रस्तावित स्टोरी स्ट्रक्चर (${sceneCount} सीन का लक्ष्य):
+1. शुरुआत — दुनिया और किरदारों का परिचय।
+2. समस्या — कहानी में एक दिलचस्प घटना।
+3. सफर — किरदारों के बीच मजेदार संवाद और चुनौतियाँ।
+4. क्लाइमैक्स — मुख्य समस्या का सामना।
+5. अंत — कहानी का समाधान और यादगार अंतिम पल।
+
+महत्वपूर्ण:
+यह अभी एक PROJECT PLAN है, पूरी AI स्क्रिप्ट या वीडियो नहीं।
+असली जनरेशन के लिए Backend AI integration आवश्यक है।`;
+
+  const result = document.getElementById("result");
+  result.textContent = currentPlan;
+  result.style.display = "block";
+  document.getElementById("copyPlan").hidden = false;
+  result.scrollIntoView({behavior:"smooth", block:"nearest"});
+});
+
+document.getElementById("copyPlan").addEventListener("click", async () => {
+  if (!currentPlan) return;
+  try {
+    await navigator.clipboard.writeText(currentPlan);
+    alert("प्रोजेक्ट प्लान कॉपी हो गया!");
+  } catch (error) {
+    const area = document.createElement("textarea");
+    area.value = currentPlan;
+    document.body.appendChild(area);
+    area.select();
+    const copied = document.execCommand("copy");
+    area.remove();
+    alert(copied ? "प्रोजेक्ट प्लान कॉपी हो गया!" :
+      "कॉपी नहीं हुआ। टेक्स्ट को चुनकर कॉपी करें।");
+  }
+});
+</script>
 </body>
-        </html>
+                                     </html>
             
