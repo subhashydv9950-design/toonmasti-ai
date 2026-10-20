@@ -316,6 +316,63 @@ footer a{color:var(--mint)}
 </section>
 </div>
 
+<section class="panel" id="videoStudio" style="margin-top:18px">
+  <h2>🎬 AI Video Creation Studio</h2>
+  <p class="muted">
+    अपनी कहानी की योजना को वीडियो प्रोजेक्ट में बदलने की शुरुआत करें।
+  </p>
+
+  <label for="videoQuality">वीडियो क्वालिटी</label>
+  <select id="videoQuality">
+    <option value="720p">HD — 720p</option>
+    <option value="1080p">Full HD — 1080p</option>
+  </select>
+
+  <label for="videoRatio">वीडियो फॉर्मेट</label>
+  <select id="videoRatio">
+    <option value="9:16">9:16 — YouTube Shorts / Reels</option>
+    <option value="16:9">16:9 — YouTube / Landscape</option>
+  </select>
+
+  <label for="videoPrompt">वीडियो सीन का विवरण</label>
+  <textarea id="videoPrompt"
+    placeholder="जैसे: एक प्यारा 3D भालू जादुई जंगल में अपने दोस्तों के साथ दौड़ रहा है।"></textarea>
+
+  <button class="button full" id="generateVideoBtn" type="button">
+    🎥 वीडियो बनाएं
+  </button>
+
+  <div id="videoMessage" class="notice" aria-live="polite">
+    अभी वीडियो API कनेक्ट नहीं है। पहले अपनी कहानी और सीन तैयार करें।
+  </div>
+
+  <div id="videoPreview" style="margin-top:16px;display:none">
+    <h3>🎞️ Video Preview</h3>
+    <video id="generatedVideo"
+      controls playsinline
+      style="width:100%;max-height:500px;border-radius:14px;background:#080b14">
+    </video>
+  </div>
+</section>
+
+<script>
+document.getElementById("generateVideoBtn").addEventListener("click", () => {
+  const prompt = document.getElementById("videoPrompt").value.trim();
+  const message = document.getElementById("videoMessage");
+
+  if (!prompt) {
+    message.textContent = "पहले वीडियो सीन का विवरण लिखें।";
+    document.getElementById("videoPrompt").focus();
+    return;
+  }
+
+  message.textContent =
+    "आपका वीडियो सीन तैयार है। वास्तविक वीडियो बनाने के लिए " +
+    "अब सुरक्षित Backend और समर्थित Video Generation API जोड़नी होगी। " +
+    "अभी कोई वीडियो जनरेट नहीं हुआ है।";
+});
+</script>
+  
 <section class="panel" style="margin-top:18px">
   <h2>🎞️ आपका अगला क्रिएशन</h2>
   <p class="muted">
