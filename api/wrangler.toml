@@ -1,0 +1,4 @@
+
+name = "toonmasti-ai"
+main = "api/generate.js"
+compatibility_date = "2026-10-21"
